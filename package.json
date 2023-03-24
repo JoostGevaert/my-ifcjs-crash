@@ -1,0 +1,35 @@
+{
+  "name": "bim-gis",
+  "version": "1.0.0",
+  "description": "BIM + GIS web page",
+  "main": "index.js",
+  "scripts": {
+    "build": "rollup -c",
+    "watch": "rollup -c -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoostGevaert/bim-gis.git"
+  },
+  "keywords": [
+    "bim",
+    "gis",
+    "web"
+  ],
+  "author": "Joost Gevaert",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JoostGevaert/bim-gis/issues"
+  },
+  "homepage": "https://github.com/JoostGevaert/bim-gis#readme",
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "rollup": "^3.14.0"
+  },
+  "dependencies": {
+    "camera-controls": "^2.3.1",
+    "three": "^0.135.0",
+    "web-ifc-viewer": "^1.0.213"
+  }
+}
