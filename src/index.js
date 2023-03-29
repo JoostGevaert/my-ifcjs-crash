@@ -1,22 +1,6 @@
 import { createThreeScene } from "./three-scene";
-import { loadIfc, uploadIfcWiv } from "./wiv";
 import { loadGltf } from "./gltf";
-import { uploadIfcWit as uploadIfcWit } from "./wit";
-
-// Visualize several different IFC models read from the repo
-let ifcModelNumber = 0;
-const ifcViewerContainer = document.getElementById("ifc-viewer");
-if (ifcViewerContainer) {
-  ifcModelNumber = localStorage.getItem("ifc");
-  const ifcViewer = loadIfc(ifcViewerContainer, ifcModelNumber);
-}
-
-// Upload an IFC file and visualize it with web-ifc-viewer (WIV)
-const wivContainer = document.getElementById("wiv");
-if (wivContainer) {
-  const input = document.getElementById("file-input");
-  const ifcViewer = uploadIfcWiv(wivContainer, input);
-}
+import { uploadIfcWit } from "./wit";
 
 // Load a glTF in Three.js
 const gltfCanvas = document.getElementById("gltf");
