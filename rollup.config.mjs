@@ -2,6 +2,16 @@ import resolve from "@rollup/plugin-node-resolve";
 
 export default [
   {
+    input: "./src/three.js",
+    output: [
+      {
+        format: "esm",
+        file: "./dist/three-bundle.js",
+      },
+    ],
+    plugins: [resolve()],
+  },
+  {
     input: "./src/wiv.js",
     output: [
       {
