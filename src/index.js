@@ -2,9 +2,9 @@ import { BoxGeometry } from "three";
 
 import { createThreeScene } from "./three-scene";
 import { createGeoWithEdges } from "./three-cubes";
-import { loadIfc, uploadIfcWiv } from "./ifc-viewer";
+import { loadIfc, uploadIfcWiv } from "./wiv";
 import { loadGltf } from "./gltf";
-import { uploadIfcWit as uploadIfcWit } from "./ifc-three";
+import { uploadIfcWit as uploadIfcWit } from "./wit";
 
 // Create a basic Three.js scene with 3 rotating cubes.
 const threeCanvas = document.getElementById("three-cubes");
