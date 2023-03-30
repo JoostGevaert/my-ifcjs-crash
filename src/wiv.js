@@ -10,6 +10,7 @@ import {
 } from "web-ifc";
 import { IfcViewerAPI } from "web-ifc-viewer";
 
+// 1 Instantiate IFC viewer (WIV: web-ifc-viewer)
 const wivContainer = document.getElementById("wiv");
 const ifcViewer = new IfcViewerAPI({
   container: wivContainer,
@@ -21,9 +22,14 @@ ifcViewer.axes.setAxes();
 const loadIfc = async (ifcURL) => {
   await ifcViewer.IFC.setWasmPath("./");
   const model = await ifcViewer.IFC.loadIfcUrl(ifcURL);
+  model.removeFromParent();
   await ifcViewer.shadowDropper.renderShadow(model.modelID);
+
+  // *4 Toggle visibility by IFC category
+  await setupAllIfcCategories();
 };
 
+// 2 Load IFC model into viewer
 const inputElement = document.getElementById("file-input");
 const modelNameElement = document.getElementById("model-name");
 ifcModelNumber = localStorage.getItem("ifc");
@@ -46,77 +52,74 @@ if (!(ifcModelNumber < 1 || ifcModelNumber > 5)) {
   );
 }
 
+// 3 Make IFC elements selectable
+// ¿How to deselect elements?
 window.onmousemove = async () => await ifcViewer.IFC.selector.prePickIfcItem();
 window.ondblclick = async () => await ifcViewer.IFC.selector.pickIfcItem();
 
-// const ifcCategories = {
-//   IFCWALLSTANDARDCASE,
-//   IFCSLAB,
-//   IFCDOOR,
-//   IFCWINDOW,
-//   IFCFURNISHINGELEMENT,
-//   IFCMEMBER,
-//   IFCPLATE,
-// };
+// 4 Toggle visibility by IFC category
+// ifcCategories contains {IFCNAME: ####},
+// where #### is the IFC number associated with the name of that IFC category
+const ifcCategories = {
+  IFCWALLSTANDARDCASE,
+  IFCSLAB,
+  IFCFURNISHINGELEMENT,
+  IFCDOOR,
+  IFCWINDOW,
+  IFCPLATE,
+  IFCMEMBER,
+};
 
-// export const uploadIfcWiv = async (container, inputElement) => {
+const scene = ifcViewer.context.getScene();
 
-//   // Visibility exercise. It doesn't work, because:
-//   // 1. Not everything is in the same file.
-//   // 2. There is no IFC model in the viewer when the web page is first rendered.
-//   //    How do I make
-//   // await setupAllCategories(ifcViewer);
+const subsets = {};
 
-//   return ifcViewer;
-// };
+// Gets the name of a category
+const getIfcCategoryName = (ifcCategoryId) => {
+  const ifcNames = Object.keys(ifcCategories);
+  return ifcNames.find((name) => ifcCategories[name] === ifcCategoryId);
+};
 
-// const getName = (category) => {
-//   const names = Object.keys(ifcCategories);
-//   return names.find((name) => ifcCategories[name] === category);
-// };
+// Gets all the items of a category
+const getAllIfcElementsOfIfcCategoryId = async (ifcCategoryId) =>
+  ifcViewer.IFC.loader.ifcManager.getAllItemsOfType(0, ifcCategoryId, false);
 
-// const getAll = async (ifcViewer, category) => {
-//   console.log(ifcViewer.IFC.loader.ifcManager);
-//   console.log(category);
-//   return ifcViewer.IFC.loader.ifcManager.getAllItemsOfType(0, category, false);
-// };
+// Creates a new subset containing all elements of a category
+const newSubsetOfType = async (ifcCategoryId) => {
+  const ids = await getAllIfcElementsOfIfcCategoryId(ifcCategoryId);
+  return ifcViewer.IFC.loader.ifcManager.createSubset({
+    modelID: 0,
+    scene,
+    ids,
+    removePrevious: true,
+    customID: ifcCategoryId.toString(),
+  });
+}
 
-// const newSubsetOfType = async (ifcViewer, category) => {
-//   const scene = ifcViewer.context.getScene();
-//   const ids = await getAll(ifcViewer, category);
-//   return ifcViewer.IFC.loader.ifcManager.createSubset({
-//     modelID: 0,
-//     scene,
-//     ids,
-//     removePrevious: true,
-//     customID: category.toString(),
-//   });
-// };
+// Creates a new subset and configures the checkbox
+const setupIfcCategory = async (ifcCategoryId) => {
+  subsets[ifcCategoryId] = await newSubsetOfType(ifcCategoryId);
+  setupCheckBox(ifcCategoryId);
+}
 
-// const subsets = {};
+// Sets up the checkbox event to hide / show elements
+const setupCheckBox = (ifcCategoryId) => {
+  const ifcCategoryName = getIfcCategoryName(ifcCategoryId);
+  const checkBox = document.getElementById(ifcCategoryName);
+  checkBox.addEventListener("change", (event) => {
+    const checked = event.target.checked;
+    const subset = subsets[ifcCategoryId];
+    console.log(subset);
+    if (checked) scene.add(subset);
+    else subset.removeFromParent();
+  });
+}
 
-// const setupCheckbox = async (ifcViewer, category) => {
-//   const scene = ifcViewer.context.getScene();
-//   const name = getName(category);
-//   const checkbox = document.getElementById(name);
-//   checkbox.addEventListener("change", (event) => {
-//     const checked = event.target.checked;
-//     const subset = subsets[category];
-//     if (checked) scene.add(subset);
-//     else subset.removeFromParent();
-//   });
-// };
-
-// const setupCategory = async (ifcViewer, category) => {
-//   subsets[category] = await newSubsetOfType(ifcViewer, category);
-//   setupCheckbox(ifcViewer, category);
-// };
-
-// const setupAllCategories = async (ifcViewer) => {
-//   const allCategories = Object.values(ifcCategories);
-//   console.log(ifcCategories);
-//   for (let i = 0; i < allCategories.length; i++) {
-//     const category = allCategories[i];
-//     await setupCategory(ifcViewer, category);
-//   }
-// };
+// Stores the created subsets
+const setupAllIfcCategories = async () => {
+  const allCategories = Object.values(ifcCategories);
+  for (let i = 0; i < allCategories.length; i++) {
+    const category = allCategories[i];
+    await setupIfcCategory(category);
+  }
+}
