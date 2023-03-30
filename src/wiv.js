@@ -109,7 +109,6 @@ const setupCheckBox = (ifcCategoryId) => {
   checkBox.addEventListener("change", (event) => {
     const checked = event.target.checked;
     const subset = subsets[ifcCategoryId];
-    console.log(subset);
     if (checked) scene.add(subset);
     else subset.removeFromParent();
   });
