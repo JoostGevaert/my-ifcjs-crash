@@ -47,10 +47,6 @@ h3 {
   font-size: 0.8rem;
 }
 
-p {
-  font-size: 0.75rem;
-}
-
 a {
   text-decoration: none;
 }
@@ -60,7 +56,7 @@ a {
 }
 
 .bottom {
-  bottom: 2rem;
+  bottom: 1.5rem;
 }
 
 .spinning {
@@ -92,22 +88,46 @@ a {
   transition: all 0.3s ease 0s;
 }
 
+/* Buttons From uiverse.io */
+.button {
+  padding: 0.7rem;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background: var(--translucent-white);
+  backdrop-filter: var(--blur-filter);
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+
+.button:hover {
+  background-color: var(--light-blue);
+  box-shadow: 0px 15px 20px rgba(46, 104, 229, 0.4);
+  color: #fff;
+  fill: #fff;
+  transform: translateY(-4px);
+}
+
+.button:active {
+  transform: translateY(-1px);
+}
+
+/* Home page cards. From uiverse.io by @fanishah */
 .project-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.toolbar {
-  display: flex;
-  flex-direction: row;
-}
-
-.toolbar button {
-  margin: 0 0.5rem;
-}
-
-/* From uiverse.io by @fanishah */
 .card {
   margin: 1rem;
   min-width: 10rem;
@@ -150,39 +170,15 @@ a {
   color: var(--light-blue);
 }
 
-/* From uiverse.io */
-.button {
-  padding: 0.7rem;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 2.5px;
-  font-weight: 500;
-  color: #000;
-  background: var(--translucent-white);
-  backdrop-filter: var(--blur-filter);
-  border: none;
-  border-radius: 45px;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease 0s;
-  cursor: pointer;
+/* Viewer and tools */
+.viewer {
+  position: absolute;
+  height: 100%;
+  width: 100%;
   outline: none;
-  display: flex;
-  align-items: center;
-  width: fit-content;
 }
 
-.button:hover {
-  background-color: var(--light-blue);
-  box-shadow: 0px 15px 20px rgba(46, 104, 229, 0.4);
-  color: #fff;
-  fill: #fff;
-  transform: translateY(-7px);
-}
-
-.button:active {
-  transform: translateY(-1px);
-}
-
+/* Model title & toolbar cards. From uiverse.io by @adamgiebl */
 .simple-card-container {
   display: flex;
   justify-content: center;
@@ -190,7 +186,6 @@ a {
   width: 100%;
 }
 
-/* From uiverse.io by @adamgiebl */
 .simple-card {
   margin: 1rem;
   z-index: 1;
@@ -200,6 +195,39 @@ a {
   box-shadow: var(--normal-shadow);
   backdrop-filter: var(--blur-filter);
   text-align: center;
+}
+
+.toolbar {
+  display: flex;
+  flex-direction: row;
+}
+
+.toolbar button {
+  margin: 0 0.5rem;
+}
+
+.inputs {
+  position: absolute;
+  margin: 1rem;
+}
+
+.checkboxes {
+  right: 0.5rem;
+}
+
+
+
+/* glTF loading screen */
+#loader-container {
+  position: fixed;
+  background-color: black;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: white;
 }
 
 /* From uiverse.io by @barisdogansutcu */
@@ -240,32 +268,4 @@ a {
   100% {
     stroke-dashoffset: -125px;
   }
-}
-
-.viewer {
-  position: absolute;
-  height: 100vh;
-  width: 100vw;
-  outline: none;
-}
-
-.inputs {
-  position: absolute;
-  margin: 1rem;
-}
-
-.checkboxes {
-  right: 0.5rem;
-}
-
-#loader-container {
-  position: fixed;
-  background-color: black;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  color: white;
 }
