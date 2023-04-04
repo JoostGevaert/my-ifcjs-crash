@@ -325,3 +325,10 @@ click outside of the dropdown menu to close it. */
     stroke-dashoffset: -125px;
   }
 }
+
+
+/* WIP */
+.wip {
+  pointer-events: none;
+  filter: opacity(50%);
+}
