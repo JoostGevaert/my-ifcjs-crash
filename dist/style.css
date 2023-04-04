@@ -224,8 +224,6 @@ a {
   opacity: 0;
   pointer-events: none;
   position: absolute;
-  top: 50%;
-  left: 50%;
 }
 
 /* add a fixed position pseudo-element to the labels that stretches across the 
@@ -233,19 +231,19 @@ entire page, effectively creating a background overlay. The pointer-events
 property is set to "none", to prevent the user from clicking on the 
 pseudo-element, but is set to "auto" for the checked label to allow the user to 
 click outside of the dropdown menu to close it. */
-.dropdown-checkbox:checked + label:before,
-.dropdown-checkbox:not(:checked) + label:before {
+.dropdown-checkbox:checked:before,
+.dropdown-checkbox:not(:checked):before {
   position: fixed;
   top: 0;
   left: 0;
   content: "";
   width: 100vw;
-  height: 100vw;
+  height: 100vh;
   z-index: -1;
   cursor: auto;
   pointer-events: none;
 }
-.dropdown-checkbox:checked + label:before {
+.dropdown-checkbox:checked:before {
   pointer-events: auto;
 }
 
@@ -257,14 +255,14 @@ click outside of the dropdown menu to close it. */
 
 .dropdown-section {
   position: absolute;
-  top: -12rem;
+  bottom: 1.8rem;
+  left: -0.5rem;
   display: block;
   z-index: 2;
   width: max-content;
   /* Invisible by default */
   opacity: 0;
   pointer-events: none;
-  transform: translateX(-50%);
   transform: translateY(-1.5rem);
   transition: all 200ms linear;
 }
