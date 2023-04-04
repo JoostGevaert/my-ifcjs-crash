@@ -1,4 +1,6 @@
-* {
+*,
+*::before,
+*::after  {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -47,10 +49,6 @@ h3 {
   font-size: 0.8rem;
 }
 
-p {
-  font-size: 0.75rem;
-}
-
 a {
   text-decoration: none;
 }
@@ -60,7 +58,7 @@ a {
 }
 
 .bottom {
-  bottom: 2rem;
+  bottom: 1.5rem;
 }
 
 .spinning {
@@ -92,22 +90,46 @@ a {
   transition: all 0.3s ease 0s;
 }
 
+/* Buttons From uiverse.io */
+.button {
+  padding: 0.7rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background: var(--translucent-white);
+  backdrop-filter: var(--blur-filter);
+  border: none;
+  border-radius: 3rem;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+
+.button:hover {
+  background-color: var(--light-blue);
+  box-shadow: 0px 15px 20px rgba(46, 104, 229, 0.4);
+  color: #fff;
+  fill: #fff;
+  transform: translateY(-4px);
+}
+
+.button:active {
+  transform: translateY(-1px);
+}
+
+/* Home page cards. From uiverse.io by @fanishah */
 .project-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.toolbar {
-  display: flex;
-  flex-direction: row;
-}
-
-.toolbar button {
-  margin: 0 0.5rem;
-}
-
-/* From uiverse.io by @fanishah */
 .card {
   margin: 1rem;
   min-width: 10rem;
@@ -150,39 +172,20 @@ a {
   color: var(--light-blue);
 }
 
-/* From uiverse.io */
-.button {
-  padding: 0.7rem;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 2.5px;
-  font-weight: 500;
-  color: #000;
-  background: var(--translucent-white);
-  backdrop-filter: var(--blur-filter);
-  border: none;
-  border-radius: 45px;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease 0s;
-  cursor: pointer;
+/* Viewer and tools */
+.viewer {
+  position: absolute;
+  height: 100%;
+  width: 100%;
   outline: none;
-  display: flex;
-  align-items: center;
-  width: fit-content;
 }
 
-.button:hover {
-  background-color: var(--light-blue);
-  box-shadow: 0px 15px 20px rgba(46, 104, 229, 0.4);
-  color: #fff;
-  fill: #fff;
-  transform: translateY(-7px);
+.inputs {
+  position: absolute;
+  margin: 1rem;
 }
 
-.button:active {
-  transform: translateY(-1px);
-}
-
+/* Model title & toolbar cards. From uiverse.io by @adamgiebl */
 .simple-card-container {
   display: flex;
   justify-content: center;
@@ -190,7 +193,6 @@ a {
   width: 100%;
 }
 
-/* From uiverse.io by @adamgiebl */
 .simple-card {
   margin: 1rem;
   z-index: 1;
@@ -200,6 +202,88 @@ a {
   box-shadow: var(--normal-shadow);
   backdrop-filter: var(--blur-filter);
   text-align: center;
+}
+
+.toolbar {
+  display: flex;
+  flex-direction: row;
+}
+
+.toolbar .button {
+  margin: 0 0.5rem;
+}
+
+
+/* Dropdown */
+.dropdown-container {
+  position: relative;
+}
+
+.dropdown-checkbox:checked,
+.dropdown-checkbox:not(:checked) {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+/* add a fixed position pseudo-element to the labels that stretches across the 
+entire page, effectively creating a background overlay. The pointer-events 
+property is set to "none", to prevent the user from clicking on the 
+pseudo-element, but is set to "auto" for the checked label to allow the user to 
+click outside of the dropdown menu to close it. */
+.dropdown-checkbox:checked:before,
+.dropdown-checkbox:not(:checked):before {
+  position: fixed;
+  top: 0;
+  left: 0;
+  content: "";
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  cursor: auto;
+  pointer-events: none;
+}
+.dropdown-checkbox:checked:before {
+  pointer-events: auto;
+}
+
+.dropdown-checkbox:checked ~ .dropdown-section {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.dropdown-section {
+  position: absolute;
+  bottom: 1.8rem;
+  left: -0.5rem;
+  display: block;
+  z-index: 2;
+  width: max-content;
+  /* Invisible by default */
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-1.5rem);
+  transition: all 200ms linear;
+}
+
+.dropdown-container .dropdown-section {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+
+/* glTF loading screen */
+#loader-container {
+  position: fixed;
+  background-color: black;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: white;
 }
 
 /* From uiverse.io by @barisdogansutcu */
@@ -242,30 +326,9 @@ a {
   }
 }
 
-.viewer {
-  position: absolute;
-  height: 100vh;
-  width: 100vw;
-  outline: none;
-}
 
-.inputs {
-  position: absolute;
-  margin: 1rem;
-}
-
-.checkboxes {
-  right: 0.5rem;
-}
-
-#loader-container {
-  position: fixed;
-  background-color: black;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  color: white;
+/* WIP */
+.wip {
+  pointer-events: none;
+  filter: opacity(50%);
 }
