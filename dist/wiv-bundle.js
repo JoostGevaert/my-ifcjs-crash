@@ -121908,22 +121908,21 @@ const loadIfc = async (ifcURL) => {
 };
 
 // 2 Load IFC model into viewer
-const inputElement = document.getElementById("file-input");
 const modelNameElement = document.getElementById("model-name");
 ifcModelNumber = localStorage.getItem("ifc");
 if (!(ifcModelNumber < 1 || ifcModelNumber > 5)) {
-  inputElement.style.display = "none";
+  document.getElementById("file-input-label").style.display = "none";
   const ifcURL = `../static/IFC/0${ifcModelNumber}.ifc`;
   const modelName = ifcURL.split("/").pop();
   modelNameElement.innerHTML = `Model: ${modelName}`;
   loadIfc(ifcURL);
 } else {
-  inputElement.addEventListener(
+  document.getElementById("file-input").addEventListener(
     "change",
     async (changed) => {
       const ifcURL = URL.createObjectURL(changed.target.files[0]);
       ifcURL.split("/").pop();
-      modelNameElement.innerHTML = `The model you uploaded`;
+      modelNameElement.innerHTML = "The model you uploaded";
       loadIfc(ifcURL);
     },
     false
@@ -121985,7 +121984,7 @@ const setupCheckBox = (ifcCategoryId) => {
   const ifcCategoryName = getIfcCategoryName(ifcCategoryId);
   const checkBox = document.getElementById(ifcCategoryName);
   checkBox.addEventListener("change", (event) => {
-    const checked = event.target.checked;
+    const { checked } = event.target;
     const subset = subsets[ifcCategoryId];
     if (checked) scene.add(subset);
     else subset.removeFromParent();
