@@ -121912,7 +121912,7 @@ const modelNameElement = document.getElementById("model-name");
 ifcModelNumber = localStorage.getItem("ifc");
 if (!(ifcModelNumber < 1 || ifcModelNumber > 5)) {
   document.getElementById("file-input-label").style.display = "none";
-  const ifcURL = `../static/IFC/0${ifcModelNumber}.ifc`;
+  const ifcURL = `./public/IFC/0${ifcModelNumber}.ifc`;
   const modelName = ifcURL.split("/").pop();
   modelNameElement.innerHTML = `Model: ${modelName}`;
   loadIfc(ifcURL);
