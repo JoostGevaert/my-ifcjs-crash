@@ -180,11 +180,6 @@ a {
   outline: none;
 }
 
-.inputs {
-  position: absolute;
-  margin: 1rem;
-}
-
 /* Model title & toolbar cards. From uiverse.io by @adamgiebl */
 .simple-card-container {
   display: flex;
@@ -213,6 +208,13 @@ a {
   margin: 0 0.5rem;
 }
 
+
+/* File input */
+.file-input {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+}
 
 /* Dropdown */
 .dropdown-container {

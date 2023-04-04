@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WIT upload IFC</title>
+    <link rel="icon" type="image/x-icon" href="./public/favicon.ico" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="overflow-hidden">
+    <canvas class="viewer" id="wit"></canvas>
+
+    <div class="simple-card-container bottom">
+      <div class="toolbar">
+
+        <label class="button" for="file-input" id="file-input-label">
+          <input type="file" class="file-input" id="file-input" />
+          <object type="image/svg+xml" data="./public/upload.svg">upload.svg</object>
+        </label>
+
+        <button class="button wip">
+          <object type="image/svg+xml" data="./public/list-bullets.svg">list-bullets.svg</object>
+        </button>
+
+        <button class="button wip">
+          <object type="image/svg+xml" data="./public/model.svg">model.svg</object>
+        </button>
+
+        <button class="button wip">
+          <object type="image/svg+xml" data="./public/magnifying-glass.svg">magnifying-glass.svg</object>
+        </button>
+
+        <button class="button wip">
+          <object type="image/svg+xml" data="./public/scissors.svg">scissors.svg</object>
+        </button>
+
+        <button class="button wip">
+          <object type="image/svg+xml" data="./public/pencil-simple.svg">pencil-simple.svg</object>
+        </button>
+      </div>
+    </div>
+
+    <script src="wit-bundle.js"></script>
+  </body>
+</html>
