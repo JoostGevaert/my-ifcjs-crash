@@ -18,8 +18,6 @@
 
   --normal-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   --blur-filter: blur(8px);
-
-  --orange-500: hwb(27 21% 7%);
 }
 
 html,
